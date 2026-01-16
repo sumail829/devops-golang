@@ -5,27 +5,27 @@ pipeline{
       }
       stages{
         stage("build"){
-          step{
+          steps{
             echo "i am building"
           }
       }
        stage("test"){
-          step{
+          steps{
             echo "testing"
           }
       }
       stage("lint"){
-          step{
+          steps{
             echo "linting"
           }
       }
       stage("Archive"){
-          step{
+          steps{
             echo "archiving this program"
           }
        }
       stage("deploy"){
-        step{
+        steps{
           echo "deploying"
         }
     }
