@@ -8,7 +8,7 @@ pipeline{
           steps{
             sh '''
               mkdir -p build
-              go build -o build/calculator 
+              go build -o build/calculator-${env.BUILD_NUMBER} 
               '''
             echo "i am building"
           }
@@ -26,7 +26,7 @@ pipeline{
       }
       stage("Archive"){
           steps{
-            archiveArtifacts artifacts:"build/calculator", fingerprint:true
+            archiveArtifacts artifacts:"build/calculator*", fingerprint:true
             echo "archiving this program"
           }
        }
