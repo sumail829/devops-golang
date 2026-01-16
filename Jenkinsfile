@@ -6,11 +6,16 @@ pipeline{
       stages{
         stage("build"){
           steps{
+            sh '''
+              mkdir -p build
+              go build -o build/calculator 
+              '''
             echo "i am building"
           }
       }
        stage("test"){
           steps{
+           sh "go test ./..."
             echo "testing"
           }
       }
