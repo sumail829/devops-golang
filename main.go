@@ -16,8 +16,8 @@ func main() {
 	http.HandleFunc("/mul", mulHandler)
 	http.HandleFunc("/div", divHandler)
 
-	fmt.Println("Server listening on :8080")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	fmt.Println("Server listening on :8070")
+	if err := http.ListenAndServe(":8070", nil); err != nil {
 		fmt.Printf("Error starting server: %s\n", err)
 	}
 }
