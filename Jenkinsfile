@@ -38,7 +38,7 @@ stage("Archive") {
             }
 
             sh """
-                mv calculator build/calculator-${version}
+                mv build/calculator build/calculator-${version}
             """
 
             archiveArtifacts artifacts: "build/calculator-${version}*", fingerprint: true
