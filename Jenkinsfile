@@ -8,7 +8,7 @@ pipeline{
           steps{
             sh '''
               mkdir -p build
-              go build -o build/calculator 
+              go build -o build/calculator
               '''
             echo "i am building"
           }
@@ -26,10 +26,23 @@ pipeline{
       }
       stage("Archive"){
           steps{
-            archiveArtifacts artifacts:"build/calculator*", fingerprint:true
+		scripts{
+		def version=""
+		if (env.TAG_NAME){
+			version=env.TAG_NAME
+		}
+		else if (env.BRANCH_NAME){
+			version="${env.BRANCH_NAME}"-"{env.BUILD_NUMBER}"
+		}
+		else{
+			version="dev-${env.BUILD_NUMBER}"
+		}
+	    sh "mv calculator calculator-${version}"
+            archiveArtifacts artifacts:"build/calculator-${version}*", fingerprint:true
             echo "archiving this program"
           }
        }
+}
       stage("deploy"){
         steps{
           echo "deploying"
