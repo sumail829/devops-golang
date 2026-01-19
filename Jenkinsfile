@@ -37,7 +37,6 @@ pipeline{
 		else{
 			version="dev-${env.BUILD_NUMBER}"
 		}
-	    sh "mv calculator build/calculator-${version}"
             archiveArtifacts artifacts:"build/calculator-${version}*", fingerprint:true
             echo "archiving this program"
           	   }
