@@ -27,9 +27,9 @@ pipeline{
       stage("Archive"){
           steps{
 		scripts{
-		def version=""
+		def version= ""
 		if (env.TAG_NAME){
-			version=env.TAG_NAME
+			version="${env.TAG_NAME}"
 		}
 		else if (env.BRANCH_NAME){
 			version="${env.BRANCH_NAME}"-"{env.BUILD_NUMBER}"
