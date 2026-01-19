@@ -8,7 +8,7 @@ pipeline{
           steps{
             sh '''
               mkdir -p build
-              go build -o build/calculator-${env.BUILD_NUMBER} 
+              go build -o build/calculator 
               '''
             echo "i am building"
           }
