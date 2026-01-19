@@ -26,29 +26,24 @@ pipeline{
       }
       stage("Archive"){
           steps{
-		scripts{
+		script{
 		def version= ""
 		if (env.TAG_NAME){
 			version="${env.TAG_NAME}"
 		}
 		else if (env.BRANCH_NAME){
-			version="${env.BRANCH_NAME}"-"{env.BUILD_NUMBER}"
+			version="${env.BRANCH_NAME}-{env.BUILD_NUMBER}"
 		}
 		else{
 			version="dev-${env.BUILD_NUMBER}"
 		}
-	    sh "mv calculator calculator-${version}"
+	    sh "mv calculator build/calculator-${version}"
             archiveArtifacts artifacts:"build/calculator-${version}*", fingerprint:true
             echo "archiving this program"
-          }
-       }
-}
-      stage("deploy"){
-        steps{
-          echo "deploying"
-        }
+          	   }
+       	     }
+	}
     }
-  }
 } 
     
 
