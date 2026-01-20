@@ -56,7 +56,7 @@ pipeline{
 		 
 		sudo chmod +x /opt/goapp/calculator-${version}
 		cd /opt/goapp 
-	        ./calculator-${version} &
+	        sudo nohup ./calculator-${version} app.log 2>&1 < /dev/null &
 		"""
         	}
 	    }
