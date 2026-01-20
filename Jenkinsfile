@@ -56,7 +56,7 @@ pipeline{
 		 
 		sudo chmod +x /opt/goapp/calculator-${version}
 		cd /opt/goapp 
-	        sudo ./calculator-${version} &`
+	        sudo ./calculator-${version} &
 		"""
         	}
 	    }
