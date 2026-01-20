@@ -49,10 +49,12 @@ pipeline{
 	stage("Deploy"){
 		steps{
 		script{
+		sh '''
 		def version="dev-${env.BUILD_NUMBER}"
 		 sudo cp build/calculator-${version} /opt/goapp 
 		  cd /opt/goapp 
 		 ./calculator-${version} &
+		'''
         	}
 	    }
 	}
