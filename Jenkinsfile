@@ -47,12 +47,14 @@ pipeline{
 	}
     }
 	stage("Deploy"){
-		def version= "dev-${env.BUILD_NUMBER}"
 		steps{
-		sh ' sudo cp "build/calculator-${version}" /opt/goapp '
-		sh ' cd /opt/goapp '
-		sh '"./calculator-${version} &"' 
+		script{
+		def version="dev-${env.BUILD_NUMBER}"
+		 sudo cp "build/calculator-${version}" /opt/goapp 
+		  cd /opt/goapp 
+		 "./calculator-${version} &"
         	}
+	    }
 	}
   }
 } 
