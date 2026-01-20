@@ -24,8 +24,8 @@ pipeline{
             echo "linting"
           }
       }
-stage("Archive") {
-    steps {
+	stage("Archive") {
+    	steps {
         script {
             def version = ""
 
@@ -46,6 +46,12 @@ stage("Archive") {
        	     }
 	}
     }
+	stage("Deploy"){
+		steps{
+		sh ' sudo cp "build/calculator-${version}" /opt/goapp '
+		sh '"./calculator-${version} &"' 
+        	}
+	}
   }
 } 
     
