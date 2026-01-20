@@ -52,11 +52,11 @@ pipeline{
 		
 		def version="dev-${env.BUILD_NUMBER}"
 		sh '''
-		 sudo cp build/calculator-${version} /opt/goapp 
+		 sudo cp build/calculator /opt/goapp/calculator-${version} 
 		 
 		sudo chmod +x /opt/goapp/calculator-${version}
 		cd /opt/goapp 
-		nohup  ./calculator-${version} &
+		nohup  ./calculator-${version} > app.log 2>&1 &
 		'''
         	}
 	    }
