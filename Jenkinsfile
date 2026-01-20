@@ -50,9 +50,9 @@ pipeline{
 		steps{
 		script{
 		def version="dev-${env.BUILD_NUMBER}"
-		 sudo cp "build/calculator-${version}" /opt/goapp 
+		 sudo cp build/calculator-${version} /opt/goapp 
 		  cd /opt/goapp 
-		 "./calculator-${version} &"
+		 ./calculator-${version} &
         	}
 	    }
 	}
