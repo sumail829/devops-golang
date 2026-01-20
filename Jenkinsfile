@@ -49,8 +49,9 @@ pipeline{
 	stage("Deploy"){
 		steps{
 		script{
-		sh '''
+		
 		def version="dev-${env.BUILD_NUMBER}"
+		sh '''
 		 sudo cp build/calculator-${version} /opt/goapp 
 		 
 		sudo chmod +x /opt/goapp/calculator-${version}
