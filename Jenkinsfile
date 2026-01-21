@@ -49,19 +49,16 @@ pipeline{
 	stage("Deploy"){
 		steps{
 		script{
+				def version="dev-${env.BUILD_NUMBER}"
+		sh """
+		#sudo fuser -k 8080/tcp || true
+		 sudo cp build/calculator-${version} /opt/goapp/ 
+	
+		sudo chmod +x /opt/goapp/calculator-${version}
+		cd /opt/goapp 
+	        sudo ./calculator-${version} &
+	        sudo nohup ./calculator-${version} > /var/log/calculator.log 2>&1 &
 		
-		def version="dev-${env.BUILD_NUMBER}"
-		sh ""
-		if sudo netstat -tulpn | grep -q ":8070"; then
-		    echo "Port 8080 in use, killing process..."
-		    sudo fuser -k 8070/tcp || true
-		else
-	            echo "Port 8080 free, starting calculator..."
-   	 	    sudo cp build/calculator-${env.VERSION} /opt/goapp/
-    		    sudo chmod +x /opt/goapp/calculator-${env.VERSION}
-   	            cd /opt/goapp
-     		    sudo nohup ./calculator-${env.VERSION} > /var/log/calculator.log 2>&1 &
-		fi
 		"""
         	}
 	    }
