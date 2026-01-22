@@ -51,7 +51,7 @@ pipeline{
 		script{
 				def version="dev-${env.BUILD_NUMBER}"
 		sh """
-		#sudo fuser -k 8080/tcp || true
+		sudo fuser -k 8070/tcp || true
 		 sudo cp build/calculator-${version} /opt/goapp/ 
 	
 		sudo chmod +x /opt/goapp/calculator-${version}
