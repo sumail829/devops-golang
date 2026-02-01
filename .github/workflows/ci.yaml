@@ -39,9 +39,9 @@ jobs:
             ls -al
             ls -al build
       - name: copy content
-        run: echo "{{ secrets.SSH_KEY }}" > devops-tos.pem
+        run: echo "${{ secrets.SSH_KEY }}" > devops-tos.pem
       - name: give permission
-        run:  cat devops-tos.pem && chmod 400 devops-tos.pem
+        run:  cat devops-tos.pem && chmod 600 devops-tos.pem
       - name: login to ssh server
         run: |
                ssh -o StrictHostKeyChecking=no -i devops-tos.pem ${{ vars.SSH_USER }}@${{ vars.SERVER_IP }} << 'ENDSSH'
@@ -51,6 +51,7 @@ jobs:
                ENDSSH
       
   
+
 
 
 
