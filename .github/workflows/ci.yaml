@@ -25,6 +25,22 @@ jobs:
           name: calculator
           path: build/
           retention-days: 1
+  deplou-on-aws:
+    needs: Build-Go-Artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v7.0.0
+        with:
+          name: calculator
+          path: build
+      - name: list contents of current folder
+        run: |
+            ls -al
+            ls -al jar
+      
+  
+
 
 
 
