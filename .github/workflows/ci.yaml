@@ -37,9 +37,10 @@ jobs:
       - name: list contents of current folder
         run: |
             ls -al
-            ls -al jar
+            ls -al build
       
   
+
 
 
 
