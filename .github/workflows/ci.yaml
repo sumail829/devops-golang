@@ -56,9 +56,9 @@ jobs:
             ssh -o StrictHostKeyChecking=no -i devops-tos.pem ${{ vars.SSH_USER }}@${{ vars.SERVER_IP }} << 'ENDSSH'
             sudo fuser -k 8070/tcp || true
             nohup /home/ubuntu/suman1/calculator > app.log 2>&1 &        
-            curl "http://localhost:8070/add?a=10&b=20"
             ENDSSH
   
+
 
 
 
