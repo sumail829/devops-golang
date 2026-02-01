@@ -15,8 +15,17 @@ jobs:
           go-version: '1.23'
       - name: Download Go modules
         run: go mod download
-      - name: run build
-        run: go build -v ./...
+      - name: Build application
+        run: |
+          mkdir -p build
+          go build -v -o build/calculator
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v6.0.0
+        with:
+          name: calculator
+          path: build/
+          retention-days: 1
+
 
 
 
