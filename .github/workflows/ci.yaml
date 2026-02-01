@@ -44,13 +44,14 @@ jobs:
         run:  cat devops-tos.pem && chmod 400 devops-tos.pem
       - name: login to ssh server
         run: |
-           ssh -o StrictHostKeyChecking=no -i devops-tos.pem ${{ vars.SSH_USER }}@${{ vars.SERVER_IP }} << 'ENDSSH'
+               ssh -o StrictHostKeyChecking=no -i devops-tos.pem ${{ vars.SSH_USER }}@${{ vars.SERVER_IP }} << 'ENDSSH'
                if [ ! -d  /home/ubuntu/suman1 ]; then
                    mkdir /home/ubuntu/suman1
                fi
                ENDSSH
       
   
+
 
 
 
