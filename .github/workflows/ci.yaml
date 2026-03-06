@@ -1,0 +1,79 @@
+on:  
+  push: 
+   branches: 
+     - main
+
+jobs:
+  Build-Go-Artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+      - name: Set up Go environment
+        uses: actions/setup-go@v6.2.0
+        with:
+          go-version: '1.23'
+      - name: Download Go modules
+        run: go mod download
+      - name: Build application
+        run: |
+          mkdir -p build
+          go build -v -o build/calculator
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v6.0.0
+        with:
+          name: calculator
+          path: build/
+          retention-days: 1
+  deplou-on-aws:
+    needs: Build-Go-Artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v7.0.0
+        with:
+          name: calculator
+          path: build
+      - name: list contents of current folder
+        run: |
+            ls -al
+            ls -al build
+      - name: copy content
+        run: echo "${{ secrets.SSH_KEY }}" > devops-tos.pem
+      - name: give permission
+        run:  cat devops-tos.pem && chmod 600 devops-tos.pem
+      - name: login to ssh server
+        run: |
+               ssh -o StrictHostKeyChecking=no -i devops-tos.pem ${{ vars.SSH_USER }}@${{ vars.SERVER_IP }} << 'ENDSSH'
+               if [ ! -d  /home/ubuntu/suman1 ]; then
+                   mkdir /home/ubuntu/suman1
+               fi
+               ENDSSH
+      - name: copy artifact to aws server
+        run: scp -i devops-tos.pem -rv build/* ${{ vars.SSH_USER }}@${{ vars.SERVER_IP }}:/home/ubuntu/suman1
+      - name: running the go application
+        run: |
+            ssh -o StrictHostKeyChecking=no -i devops-tos.pem ${{ vars.SSH_USER }}@${{ vars.SERVER_IP }} << 'ENDSSH'
+            sudo fuser -k 8070/tcp || true
+            nohup /home/ubuntu/suman1/calculator > app.log 2>&1 &        
+            ENDSSH
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
